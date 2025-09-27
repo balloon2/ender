@@ -18,6 +18,11 @@
       padding: 2rem;
       border-bottom: 2px solid #6a0dad;
     }
+    #ip-display {
+      font-size: 0.9rem;
+      color: #ffcc00;
+      margin-top: 0.5rem;
+    }
     nav ul {
       display: flex;
       justify-content: center;
@@ -70,6 +75,7 @@
   <header>
     <h1>🟣 Ender Gauntlet</h1>
     <p>Harness the Power of the Void</p>
+    <div id="ip-display">Your IP address: <span id="ip-address">Loading...</span></div>
   </header>
 
   <nav>
@@ -121,6 +127,16 @@
     function revealSecret() {
       document.getElementById("secret-power").classList.remove("hidden");
     }
+
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('ip-address').textContent = data.ip;
+      })
+      .catch(error => {
+        console.error('IP fetch error:', error);
+        document.getElementById('ip-address').textContent = 'Unavailable';
+      });
   </script>
 </body>
 </html>
